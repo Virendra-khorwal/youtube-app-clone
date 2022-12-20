@@ -1,135 +1,138 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import HomeScreen from './screens/HomeScreen';
-import ExploreScreen from './screens/ExploreScreen';
-import UploadVideoScreen from './screens/UploadVideoScreen';
-import SubscriptionScreen from './screens/SubscriptionScreen';
-import LibraryScreen from './screens/LibraryScreen';
-import { Colors } from './constants/color';
+import HomeScreen from "./screens/HomeScreen";
+import ExploreScreen from "./screens/ExploreScreen";
+import UploadVideoScreen from "./screens/UploadVideoScreen";
+import SubscriptionScreen from "./screens/SubscriptionScreen";
+import LibraryScreen from "./screens/LibraryScreen";
+import { Colors } from "./constants/color";
+import { Provider } from "react-redux";
+import store from "./app/store";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarShowLabel: false,
-          tabBarStyle: {
-            bottom: 20,
-            // left:10,
-            marginHorizontal: 10,
-            borderRadius: 10,
-            elevation: 6,
-            height: 60,
-            backgroundColor: Colors.black,
-          },
-          tabBarActiveTintColor: Colors.red,
-          title: (
-            <View style={styles.homeHeader}>
-              <MaterialCommunityIcons
-                name="youtube"
-                size={30}
-                color={Colors.red}
-              />
-              <Text
-                style={{
-                  marginHorizontal: 4,
-                  fontSize: 20,
-                }}
-              >
-                Youtube
-              </Text>
-            </View>
-          ),
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <Ionicons
-                style={focused && styles.iconBorder}
-                name="home"
-                color={color}
-                size={size}
-              />
-            ),
-
-          }}
-        />
-        <Tab.Screen
-          name="Explore"
-          component={ExploreScreen}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <MaterialIcons
-                style={focused && styles.iconBorder}
-                name="explore"
-                color={color}
-                size={size}
-              />
-            ),
-            // tabBarItemStyle: {
-            //   borderBottomColor: "red",
-            //   borderBottomWidth: 2,
-            // },
-          }}
-        />
-        <Tab.Screen
-          name="Upload Video"
-          component={UploadVideoScreen}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <Ionicons
-                style={focused ? styles.roundIconFocussed : styles.icon}
-                name="add"
-                color={color}
-                size={size}
-              />
-            ),
-            tabBarItemStyle: {
-              bottom: 30,
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              bottom: 20,
+              // left:10,
+              marginHorizontal: 10,
+              borderRadius: 10,
+              elevation: 6,
+              height: 60,
+              backgroundColor: Colors.black,
             },
-          }}
-        />
-        <Tab.Screen
-          name="Subcriptions"
-          component={SubscriptionScreen}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <MaterialIcons
-                style={focused && styles.iconBorder}
-                name="subscriptions"
-                color={color}
-                size={size}
-              />
+            tabBarActiveTintColor: Colors.red,
+            title: (
+              <View style={styles.homeHeader}>
+                <MaterialCommunityIcons
+                  name="youtube"
+                  size={30}
+                  color={Colors.red}
+                />
+                <Text
+                  style={{
+                    marginHorizontal: 4,
+                    fontSize: 20,
+                  }}
+                >
+                  Youtube
+                </Text>
+              </View>
             ),
           }}
-        />
-        <Tab.Screen
-          name="Library"
-          component={LibraryScreen}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <MaterialIcons
-                style={focused && styles.iconBorder}
-                name="video-library"
-                color={color}
-                size={size}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: ({ color, size, focused }) => (
+                <Ionicons
+                  style={focused && styles.iconBorder}
+                  name="home"
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Explore"
+            component={ExploreScreen}
+            options={{
+              tabBarIcon: ({ color, size, focused }) => (
+                <MaterialIcons
+                  style={focused && styles.iconBorder}
+                  name="explore"
+                  color={color}
+                  size={size}
+                />
+              ),
+              // tabBarItemStyle: {
+              //   borderBottomColor: "red",
+              //   borderBottomWidth: 2,
+              // },
+            }}
+          />
+          <Tab.Screen
+            name="Upload Video"
+            component={UploadVideoScreen}
+            options={{
+              tabBarIcon: ({ color, size, focused }) => (
+                <Ionicons
+                  style={focused ? styles.roundIconFocussed : styles.icon}
+                  name="add"
+                  color={color}
+                  size={size}
+                />
+              ),
+              tabBarItemStyle: {
+                bottom: 30,
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Subcriptions"
+            component={SubscriptionScreen}
+            options={{
+              tabBarIcon: ({ color, size, focused }) => (
+                <MaterialIcons
+                  style={focused && styles.iconBorder}
+                  name="subscriptions"
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Library"
+            component={LibraryScreen}
+            options={{
+              tabBarIcon: ({ color, size, focused }) => (
+                <MaterialIcons
+                  style={focused && styles.iconBorder}
+                  name="video-library"
+                  color={color}
+                  size={size}
+                />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   homeHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  }
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });
