@@ -3,26 +3,26 @@ import { Colors } from "../constants/color";
 import { Shadow } from "react-native-shadow-2";
 
 const Card = ({ videoItem }) => {
-  //   console.log(videoItem.snippet.thumbnails.default.url);
+  // const {snippet} = {...videoItem}
+  // console.log(id);
   return (
-      <View style={styles.cardContainer}>
-        <View style={styles.imageContainer}>
-          {/* <Image
+    <View style={styles.cardContainer}>
+      <View style={styles.imageContainer}>
+        <Image
           style={styles.image}
-          source={{ uri: videoItem.snippet.thumbnails.default.url }}
-        /> */}
-          <Image
-            style={styles.image}
-            source={{
-              uri: "https://images.unsplash.com/photo-1660032356057-efd3e1eb045c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
-            }}
-          />
-        </View>
+          source={{ uri: videoItem.snippet.thumbnails.high.url }}
+        />
+      </View>
+      <View style={styles.cardFooter}>
+        <View style={styles.channelAvatar}></View>
         <View style={styles.descContainer}>
-          {/* <Text style={styles.textDesc}>{videoItem.snippet.title}</Text> */}
-          <Text style={styles.textDesc}>Video Title</Text>
+          <Text style={styles.textDesc}>{videoItem.snippet.title}</Text>
+          <Text style={styles.channelTitle}>
+            {videoItem.snippet.channelTitle}
+          </Text>
         </View>
       </View>
+    </View>
   );
 };
 
@@ -46,13 +46,28 @@ const styles = StyleSheet.create({
   },
   textDesc: {
     // color: Colors.white,
+    fontWeight: "bold",
   },
   descContainer: {
-    backgroundColor: Colors.white,
     padding: 4,
- 
+    marginLeft:4,
   },
   image: {
     height: 200,
+  },
+  channelTitle: {
+    marginVertical: 6,
+  },
+  cardFooter: {
+    flexDirection: "row",
+    paddingVertical: 8,
+    backgroundColor: Colors.white,
+    paddingHorizontal: 4,
+  },
+  channelAvatar: {
+    width: 50,
+    height: 50,
+    backgroundColor: Colors.black,
+    borderRadius: 50,
   },
 });
