@@ -1,10 +1,31 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Colors } from "../constants/color";
 import { Shadow } from "react-native-shadow-2";
+import { useEffect, useState } from "react";
 
 const Card = ({ videoItem }) => {
-  // const {snippet} = {...videoItem}
-  // console.log(id);
+  const [channelAvatar, setChannelAvatar] = useState([]);
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "5b550ec154msh074c835190d27e4p1b8d76jsn1e8f2e7c8df5",
+        "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+      },
+    };
+
+    fetch(
+      `https://youtube-v31.p.rapidapi.com/channels?part=snippet%2Cstatistics&id=${videoItem.snippet.channelId}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => setChannelAvatar(response))
+      .catch((err) => console.error(err));
+  }, []);
+
+  console.log(channelAvatar)
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.imageContainer}>
@@ -14,7 +35,12 @@ const Card = ({ videoItem }) => {
         />
       </View>
       <View style={styles.cardFooter}>
-        <View style={styles.channelAvatar}></View>
+        <View style={styles.channelAvatar}>
+          <Image
+            style={styles.channelAvatarImage}
+            source={{ uri: channelAvatar?.thumbnails?.default?.url }}
+          />
+        </View>
         <View style={styles.descContainer}>
           <Text style={styles.textDesc}>{videoItem.snippet.title}</Text>
           <Text style={styles.channelTitle}>
@@ -50,7 +76,7 @@ const styles = StyleSheet.create({
   },
   descContainer: {
     padding: 4,
-    marginLeft:4,
+    marginLeft: 4,
   },
   image: {
     height: 200,
@@ -69,5 +95,9 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: Colors.black,
     borderRadius: 50,
+  },
+  channelAvatarImage: {
+    width: 50,
+    height: 50,
   },
 });

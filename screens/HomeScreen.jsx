@@ -8,9 +8,7 @@ import {data} from '../data/exploreVideo'
 import {X_RAPIDAPI_KEY} from '@env'
 
 const HomeScreen = () => {
-  // const [videoData, setVideoData] = useState([])
-  // let videoData = items;
-  // console.log(data.snippet)
+  const [videoData, setVideoData] = useState([])
 
   const renderItem = ({item}) => (
     <Card videoItem={item} />
@@ -20,22 +18,24 @@ const HomeScreen = () => {
       const options = {
         method: "GET",
         headers: {
-          // "X-RapidAPI-Key": X_RAPIDAPI_KEY,
+          "X-RapidAPI-Key": X_RAPIDAPI_KEY,
           "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
         },
       };
 
       fetch(
-        "https://youtube-v31.p.rapidapi.com/captions?part=snippet&videoId=M7FIvfx5J10",
+        "https://youtube-v31.p.rapidapi.com/search?relatedToVideoId=7ghhRHRP6t4&part=id%2Csnippet&type=video&maxResults=50",
         options
       )
         .then((response) => response.json())
-        .then((response) => console.log(response))
+        .then((response) => setVideoData(response.items))
         .catch((err) => console.error(err));
   }, [])
 
+  if(!videoData) return <Text>Loading...</Text>
+
   return (
-    <FlatList style={styles.listContainer} keyExtractor={(item, index) => {item.id.videoId}} data={data} renderItem={renderItem} />
+    <FlatList style={styles.listContainer}  data={videoData} renderItem={renderItem} />
   );
 }
 
