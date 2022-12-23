@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { Colors } from "../constants/color";
 import { Shadow } from "react-native-shadow-2";
 import { useEffect, useState } from "react";
+import { X_RAPIDAPI_KEY } from "@env";
 
 const Card = ({ videoItem }) => {
   const [channelAvatar, setChannelAvatar] = useState([]);
@@ -10,7 +11,7 @@ const Card = ({ videoItem }) => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5b550ec154msh074c835190d27e4p1b8d76jsn1e8f2e7c8df5",
+        "X-RapidAPI-Key": X_RAPIDAPI_KEY,
         "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
       },
     };
